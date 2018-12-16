@@ -41,7 +41,6 @@ with open('g2fgenome.txt') as tsv:
 
 with open ('converted.txt', 'w') as f:
     f.truncate()
-    # '\t'.join(genes[name])
     f.write('\t'.join(lines[0]))
     for k in genes.keys():
         f.write(k+'\t'+'\t'.join(genes[k]))
