@@ -4,11 +4,16 @@ import re
 def prep(genome):
     split_genome = genome.replace(":"," ").replace("-"," ").replace("_"," ").split()
     genome = []
+    
+    
+    potential_name = []
     for chunk in split_genome:
         if re.search('[a-zA-Z]', chunk):
-            genome.append(chunk)
+            potential_name.append(chunk)
+            genome = genome+potential_name
+            potential_name = []
         else:
-            break
+            potential_name.append(chunk)
 
     genome = '_'.join(genome)
     return genome
