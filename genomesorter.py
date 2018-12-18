@@ -1,20 +1,20 @@
 import csv
+import re
 
 def prep(genome):
-    genome = genome.split(':')[0]
-    if "_" in genome:
-        s = "_"
-    else:
-        s = "-"
-    
-    gs = genome.split("s")
-    if gs[-1].isdigit():
-        genome = genome[:-1*(len(gs[-1])+1)]
+    split_genome = genome.replace(":"," ").replace("-"," ").replace("_"," ").split()
+    genome = []
+    for chunk in split_genome:
+        if re.search('[a-zA-Z]', chunk):
+            genome.append(chunk)
+        else:
+            break
+
+    genome = '_'.join(genome)
     return genome
 
 with open('genome.txt') as tsv:
     lines = [line.strip().split('\t') for line in tsv]
-    
     names = {}
     genes = {}
 
@@ -29,7 +29,6 @@ with open('genome.txt') as tsv:
         except ZeroDivisionError:
             acc = 0.0
         
-
         if name in names.keys():
             if names[name] > acc:
                 genes[name] = line[1:]
@@ -41,6 +40,7 @@ with open('genome.txt') as tsv:
 
 with open ('converted.txt', 'w') as f:
     f.truncate()
+    #This is generally fine, contains header data
     f.write('\t'.join(lines[0]))
     for k in genes.keys():
         f.write('\n'+k+'\t'+'\t'.join(genes[k]))
