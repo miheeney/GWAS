@@ -43,4 +43,7 @@ with open ('converted.txt', 'w') as f:
     #This is generally fine, contains header data
     f.write('\t'.join(lines[0]))
     for k in genes.keys():
-        f.write('\n'+k+'\t'+'\t'.join(genes[k]))
+        if k == "":
+            pass
+        else:
+            f.write('\n'+k+'\t'+'\t'.join(genes[k]))
