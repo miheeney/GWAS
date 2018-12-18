@@ -12,7 +12,7 @@ def prep(genome):
         genome = genome[:-1*(len(gs[-1])+1)]
     return genome
 
-with open('g2fgenome.txt') as tsv:
+with open('genome.txt') as tsv:
     lines = [line.strip().split('\t') for line in tsv]
     
     names = {}
@@ -43,4 +43,4 @@ with open ('converted.txt', 'w') as f:
     f.truncate()
     f.write('\t'.join(lines[0]))
     for k in genes.keys():
-        f.write(k+'\t'+'\t'.join(genes[k]))
+        f.write('\n'+k+'\t'+'\t'.join(genes[k]))
